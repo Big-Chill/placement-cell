@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Batches</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/student.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    </head>
+    <body>
+        <h1>Batches</h1>
+        <table class="table-primary table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Students</th>                
+                </tr>
+            </thead>
+
+            <tbody>
+                <% batches.forEach(function(batch) { %>
+                    <tr>
+                        <td><%= batch.batch.name %></td>                        
+                        <td><%= batch.studentCount %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+        <div class="parent-div">
+            <form action="/batches/addBatch" method="POST">
+                <label for="name">Batch Name</label>
+                <input type="text" name="name" id="name" required>
+                <button type="submit">Add Batch</button>
+            </form>
+        </div>
+    </body>
+</html>

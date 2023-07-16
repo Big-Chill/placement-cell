@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Student Details</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/student.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    </head>
+    <body>
+        <h1>Student Details</h1>
+        <div class="parent-div">
+              <form>
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" class="form-control" value="<%= student.name %>" readonly>
+                <label for="college">College</label>
+                <input type="text" name="college" id="college" class="form-control" value="<%= student.college %>" readonly>
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" class="form-control" value="<%= student.email %>" readonly>
+                <label for="phone">Phone</label>
+                <input type="text" name="phone" id="phone" class="form-control" value="<%= student.phone %>" readonly>
+                <label for="batch">Batch</label>
+                <input type="text" name="batch" id="batch" class="form-control" value="<%= batch.name %>" readonly>
+                <label for="status">Status</label>
+                <input type="text" name="status" id="status" class="form-control" value="<%= student.status %>" readonly>
+              </form>
+        </div>
+        <br/>
+        <h1>Change Placement Status</h1>
+        <div>
+            <form action="/students/updateStudentStatus/<%= student._id %>" method="POST">
+                <label for="status">Status</label>
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="status" id="status">
+                    <option value="placed">Placed</option>
+                    <option value="not placed">Not Placed</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Change Status</button>
+            </form>
+        </div>
+        <br/>
+        <h1>Course Details</h1>
+        <div class="parent-div">
+            <form action="/students/addCourseScore/<%= student._id %>" method="POST">
+                <label for="course">Course</label>
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="course" id="course">
+                    <% courses.forEach(function(course) { %>
+                        <option value="<%= course._id %>"><%= course.name %></option>
+                    <% }); %>
+                <label for="score">Score</label>
+                <input type="text" name="score" id="score" class="form-control" required>
+                <button type="submit" class="btn btn-primary">Add Score</button>
+                </select>
+                    
+            </form>
+        </div>
+        <br/>
+        <div>
+            <table class="table-primary table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Course</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% courseScores.forEach(function(course) { %>
+                        <tr>
+                            <td><%= course.course.name %></td>
+                            <td><%= course.score %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+        <br/>
+        <h1>Interview Details</h1>
+        <div>
+            <table class="table-primary table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Interview Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% interviews.forEach(function(interview) { %>
+                        <tr>
+                            <!-- <td><%= interview.company.name %></td> -->
+                            <td>
+                                <a href="/companies/getCompany/<%= interview.company._id %>">
+                                    <%= interview.company.name %>
+                                </a>
+                            </td>
+                            <td><%= interview.date %></td>
+                            <td><%= interview.result %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
